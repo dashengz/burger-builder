@@ -19,12 +19,32 @@ class App extends Component {
                 name: 'Stephanie',
                 age: 26
             }
-        ]
+        ],
+        otherState: 'Some other value'
     };
 
     // naming convention: handler, if we don't call it ourselves, but used it with event listeners
     switchNameHandler = () => {
-        console.log('Was Clicked!');
+        // console.log('Was Clicked!');
+        // Don't directly try to modify state like this: this.state.person[0].name = 'Maximilian';
+        // this.setState is inherited from Component class
+        // pass in a partial state, in this case, since otherState is not changed, it won't be erased from the state
+        this.setState({
+            persons: [
+                {
+                    name: 'Maximilian',
+                    age: 28
+                },
+                {
+                    name: 'Manu',
+                    age: 29
+                },
+                {
+                    name: 'Stephanie',
+                    age: 27
+                }
+            ]
+        });
     };
 
     render() {
