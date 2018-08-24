@@ -4,7 +4,9 @@ import React from 'react'; // needed for compiling the jsx syntax below
 const person = (props) => {
     return (
         <div>
-            <p>I'm {props.name} and I'm {props.age} years old!</p>
+            {/* Do not have access to setState because it's not a class-based component */}
+            {/* Use the click prop (switchNameHandler) that was passed to Person */}
+            <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old!</p>
             <small>{props.children}</small>
         </div>
     );
