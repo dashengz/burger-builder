@@ -7,7 +7,8 @@ const person = (props) => {
             {/* Do not have access to setState because it's not a class-based component */}
             {/* Use the click prop (switchNameHandler) that was passed to Person */}
             <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old!</p>
-            <small>{props.children}</small>
+            <p><small>{props.children}</small></p>
+            <input type="text" onChange={props.change} value={props.name} />
         </div>
     );
 };

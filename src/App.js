@@ -47,19 +47,42 @@ class App extends Component {
         });
     };
 
+    changeNameHandler = (event) => {
+        this.setState({
+            persons: [
+                {
+                    name: 'Max',
+                    age: 28
+                },
+                {
+                    name: event.target.value,
+                    age: 29
+                },
+                {
+                    name: 'Stephanie',
+                    age: 26
+                }
+            ]
+        });
+    };
+
     render() {
         return (
             <div className="App">
                 <h1>Hi, I'm a React App</h1>
                 <p>This is really working!</p>
-                <button onClick={() => this.switchNameHandler('Maximilian')}>Switch Name</button> {/* Not recommended because of performance hit */}
+                <button
+                    onClick={() => this.switchNameHandler('Maximilian') /* Not recommended because of performance hit */}
+                >Switch Name</button>
                 <Person
                     name={this.state.persons[0].name}
                     age={this.state.persons[0].age} />
                 <Person
                     name={this.state.persons[1].name}
                     age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, 'Max!')}>My Hobby: Racing</Person> {/* bind this, otherwise the runtime this will take over */}
+                    click={this.switchNameHandler.bind(this, 'Max!') /* bind this, otherwise the runtime this will take over */}
+                    change={this.changeNameHandler}
+                >My Hobby: Racing</Person>
                 <Person
                     name={this.state.persons[2].name}
                     age={this.state.persons[2].age} />
