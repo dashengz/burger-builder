@@ -12,6 +12,13 @@ function Person(props) {
             <p>Your Age: {props.age}</p>
         </div>
     );
+    // The jsx syntax above will be compiled to: (another way to create components)
+    // return React.createElement(
+    //     'div',
+    //     {className: 'person'},
+    //     React.createElement('h1', null, props.name),
+    //     React.createElement('p', null, 'Your Age: ' + props.age)
+    // );
 }
 
 // Wrapped with () so that we can write multiple lines
