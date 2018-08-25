@@ -20,7 +20,14 @@ class App extends Component {
                 age: 26
             }
         ],
-        otherState: 'Some other value'
+        otherState: 'Some other value',
+        showPersons: false
+    };
+
+    togglePersonsHandler = () => {
+        this.setState({
+            showPersons: !this.state.showPersons
+        }); // only the aforementioned property gets changed
     };
 
     // naming convention: handler, if we don't call it ourselves, but used it with event listeners
@@ -80,20 +87,25 @@ class App extends Component {
                 <p>This is really working!</p>
                 <button
                     style={buttonStyle}
-                    onClick={() => this.switchNameHandler('Maximilian') /* Not recommended because of performance hit */}
-                >Switch Name</button>
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age} />
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, 'Max!') /* bind this, otherwise the runtime this will take over */}
-                    change={this.changeNameHandler}
-                >My Hobby: Racing</Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age} />
+                    onClick={this.togglePersonsHandler}
+                >Toggle Persons</button>
+                {
+                    this.state.showPersons ?
+                        <div>
+                            <Person
+                                name={this.state.persons[0].name}
+                                age={this.state.persons[0].age} />
+                            <Person
+                                name={this.state.persons[1].name}
+                                age={this.state.persons[1].age}
+                                click={this.switchNameHandler.bind(this, 'Max!') /* bind this, otherwise the runtime this will take over */}
+                                change={this.changeNameHandler}
+                            >My Hobby: Racing</Person>
+                            <Person
+                                name={this.state.persons[2].name}
+                                age={this.state.persons[2].age} />
+                        </div> : null
+                }
             </div>
         );
     }
