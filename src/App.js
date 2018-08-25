@@ -5,25 +5,20 @@ import CharComponent from './CharComponent/CharComponent';
 
 class App extends Component {
     state = {
-        characters: []
+        characters: ''
     };
 
     validationHandler = (event) => {
         this.setState({
-            characters: event.target.value.split('').map((c, i) => {
-                return {
-                    id: i,
-                    character: c
-                };
-            })
+            characters: event.target.value
         });
     };
 
     deleteCharHandler = (index) => {
-        const newCharacters = [...this.state.characters];
+        const newCharacters = this.state.characters.split('');
         newCharacters.splice(index, 1);
         this.setState({
-            characters: newCharacters
+            characters: newCharacters.join('')
         });
     };
 
@@ -34,17 +29,17 @@ class App extends Component {
                     <h3>Wordplay!</h3>
                     <ValidationComponent
                         count={this.state.characters.length}
-                        characters={this.state.characters.map(c => c.character).join('')}
+                        characters={this.state.characters}
                         change={this.validationHandler} />
                 </section>
                 <section className="App-section">
                     {
-                        this.state.characters.map((c, index) => {
+                        this.state.characters.split('').map((c, index) => {
                             return (
                                 <CharComponent
-                                    key={c.id}
+                                    key={index}
                                     click={() => this.deleteCharHandler(index)}
-                                    character={c.character} />
+                                    character={c} />
                             );
                         })
                     }
