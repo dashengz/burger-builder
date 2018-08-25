@@ -30,27 +30,11 @@ class App extends Component {
         }); // only the aforementioned property gets changed
     };
 
-    // naming convention: handler, if we don't call it ourselves, but used it with event listeners
-    switchNameHandler = (newName) => {
-        // console.log('Was Clicked!');
-        // Don't directly try to modify state like this: this.state.person[0].name = 'Maximilian';
-        // this.setState is inherited from Component class
-        // pass in a partial state, in this case, since otherState is not changed, it won't be erased from the state
+    deletePersonHandler = (personIndex) => {
+        const newPersons = this.state.persons;
+        newPersons.splice(personIndex, 1);
         this.setState({
-            persons: [
-                {
-                    name: newName,
-                    age: 28
-                },
-                {
-                    name: 'Manu',
-                    age: 29
-                },
-                {
-                    name: 'Stephanie',
-                    age: 26
-                }
-            ]
+            persons: newPersons
         });
     };
 
@@ -87,8 +71,9 @@ class App extends Component {
             persons = (
                 <div>
                     {
-                        this.state.persons.map(person => {
+                        this.state.persons.map((person, index) => {
                             return <Person
+                                click={() => this.deletePersonHandler(index)}
                                 name={person.name}
                                 age={person.age} />
                         })
