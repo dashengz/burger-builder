@@ -1,0 +1,10 @@
+.CharComponent button {
+    padding: 20px;
+    font-size: 32px;
+    width: 100px;
+    height: 100px;
+    background-color: maroon;
+    border: none;
+    color: white;
+    margin: 5px;
+}
