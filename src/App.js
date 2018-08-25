@@ -42,22 +42,19 @@ class App extends Component {
         });
     };
 
-    changeNameHandler = (event) => {
+    changeNameHandler = (event, id) => {
+        // Find the clicked person object
+        const personIndex = this.state.persons.findIndex(p => p.id === id);
+        // Make sure we don't directly modify the original state
+        const person = {...this.state.persons[personIndex]}; // Object.assign({}, this.state.persons[personIndex])
+        // Update the name property of the clicked person object
+        person.name = event.target.value;
+        // Make sure we don't directly modify the original state
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
         this.setState({
-            persons: [
-                {
-                    name: 'Max',
-                    age: 28
-                },
-                {
-                    name: event.target.value,
-                    age: 29
-                },
-                {
-                    name: 'Stephanie',
-                    age: 26
-                }
-            ]
+            persons: persons
         });
     };
 
@@ -78,6 +75,7 @@ class App extends Component {
                         this.state.persons.map((person, index) => {
                             return <Person
                                 click={() => this.deletePersonHandler(index)}
+                                change={event => this.changeNameHandler(event, person.id)}
                                 name={person.name}
                                 age={person.age}
                                 key={person.id /* Unique id so that React can render changes more efficiently */}/>
