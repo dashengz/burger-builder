@@ -11,7 +11,7 @@ const cockpit = (props) => {
     if (props.persons.length < 2) classNames.push(classes.bold);
     return (
         <div className={classes.Cockpit}>
-            <h1>Hi, I'm a React App</h1>
+            <h1>{props.appTitle}</h1>
             <p className={classNames.join(' ')}>This is really working!</p>
             <button
                 className={buttonClass}
