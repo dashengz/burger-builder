@@ -4,29 +4,43 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
-    // the state property is inherited from Component, thus not exists in function-based components
-    // if the state changes, the corresponding component will be re-rendered
-    state = {
-        persons: [
-            {
-                id: 1,
-                name: 'Max',
-                age: 28
-            },
-            {
-                id: 2,
-                name: 'Manu',
-                age: 29
-            },
-            {
-                id: 3,
-                name: 'Stephanie',
-                age: 26
-            }
-        ],
-        otherState: 'Some other value',
-        showPersons: false
-    };
+    constructor(props) { // overriding default constructor
+        super(props); // must call super
+        // for older version of create-react-app setup, es6+ syntax not yet supported,
+        // thus some tutorials create state right here in the constructor:
+        this.state = {
+            persons: [
+                {
+                    id: 1,
+                    name: 'Max',
+                    age: 28
+                },
+                {
+                    id: 2,
+                    name: 'Manu',
+                    age: 29
+                },
+                {
+                    id: 3,
+                    name: 'Stephanie',
+                    age: 26
+                }
+            ],
+            otherState: 'Some other value',
+            showPersons: false
+        };
+
+        // Exploring lifecycle
+        console.log('App - constructor', props);
+    }
+
+    componentWillMount() {
+        console.log('App - componentWillMount()');
+    }
+
+    componentDidMount() {
+        console.log('App - componentDidMount()');
+    }
 
     togglePersonsHandler = () => {
         this.setState({
@@ -60,6 +74,7 @@ class App extends Component {
     };
 
     render() {
+        console.log('App - render()');
         let persons = null;
         if (this.state.showPersons) {
             persons = <Persons
