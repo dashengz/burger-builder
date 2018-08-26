@@ -3,6 +3,8 @@ import classes from './Person.css'; // although we just imported in Person.js, t
 
 // Use {} to wrap simple javascript calls inside jsx
 const person = (props) => {
+    // Simulate an error that you want to catch
+    if (Math.random() > 0.7) throw new Error('Something went wrong!');
     return (
         <div className={classes.Person}>
             {/* Do not have access to setState because it's not a class-based component */}
