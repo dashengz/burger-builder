@@ -1,4 +1,5 @@
 import React from 'react'; // needed for compiling the jsx syntax below
+import Radium from 'radium';
 import './Person.css'; // although we just imported in Person.js, the style will be global as it's injected into <head>
 
 // Use {} to wrap simple javascript calls inside jsx
@@ -15,4 +16,4 @@ const person = (props) => {
 };
 // If using class-based components, use this.name and this.age to reference the dynamic values
 
-export default person;
+export default Radium(person);
