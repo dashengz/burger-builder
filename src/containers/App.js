@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
     // the state property is inherited from Component, thus not exists in function-based components
@@ -60,37 +61,20 @@ class App extends Component {
 
     render() {
         let persons = null;
-        let buttonClass = '';
         if (this.state.showPersons) {
-            persons = (
-                <div>
-                    {
-                        this.state.persons.map((person, index) => {
-                            return <Person
-                                click={() => this.deletePersonHandler(index)}
-                                change={event => this.changeNameHandler(event, person.id)}
-                                name={person.name}
-                                age={person.age}
-                                key={person.id /* Unique id so that React can render changes more efficiently */}/>
-                        })
-                    }
-                </div>
-            );
-            buttonClass = classes.Red;
+            persons = <Persons
+                persons={this.state.persons}
+                click={this.deletePersonHandler}
+                change={this.changeNameHandler}
+            />;
         }
-
-        const classNames = [];
-        if (this.state.persons.length < 3) classNames.push(classes.red);
-        if (this.state.persons.length < 2) classNames.push(classes.bold);
-
         return (
             <div className={classes.App}>
-                <h1>Hi, I'm a React App</h1>
-                <p className={classNames.join(' ')}>This is really working!</p>
-                <button
-                    className={buttonClass}
-                    onClick={this.togglePersonsHandler}
-                >Toggle Persons</button>
+                <Cockpit
+                    persons={this.state.persons}
+                    showPersons={this.state.showPersons}
+                    click={this.togglePersonsHandler}
+                />
                 {persons}
             </div>
         );
