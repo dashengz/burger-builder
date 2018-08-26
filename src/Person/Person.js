@@ -1,10 +1,10 @@
 import React from 'react'; // needed for compiling the jsx syntax below
-import './Person.css'; // although we just imported in Person.js, the style will be global as it's injected into <head>
+import classes from './Person.css'; // although we just imported in Person.js, the style will be global as it's injected into <head>
 
 // Use {} to wrap simple javascript calls inside jsx
 const person = (props) => {
     return (
-        <div className="Person">
+        <div className={classes.Person}>
             {/* Do not have access to setState because it's not a class-based component */}
             {/* Use the click prop (switchNameHandler) that was passed to Person */}
             <p onClick={props.click}>I'm {props.name} and I'm {props.age} years old!</p>
