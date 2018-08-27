@@ -8,18 +8,20 @@ class Persons extends PureComponent {
         this.lastPerson = React.createRef();
     }
 
-    componentWillMount() {
-        console.log('Persons - componentWillMount()');
-    }
+    // Deprecated
+    // componentWillMount() {
+    //     console.log('Persons - componentWillMount()');
+    // }
 
     componentDidMount() {
         console.log('Persons - componentDidMount()');
         this.lastPerson.current.focus();
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log('[Update] Persons - componentWillReceiveProps', nextProps);
-    }
+    // Deprecated
+    // componentWillReceiveProps(nextProps) {
+    //     console.log('[Update] Persons - componentWillReceiveProps', nextProps);
+    // }
 
     // shouldComponentUpdate(nextProps, nextState) {
     //     console.log('[Update] Persons - shouldComponentUpdate', nextProps, nextState);
@@ -31,9 +33,10 @@ class Persons extends PureComponent {
     //     // and stop the render process to save performance.
     // }
 
-    componentWillUpdate(nextProps, nextState) {
-        console.log('[Update] Persons - componentWillUpdate', nextProps, nextState);
-    }
+    // Deprecated
+    // componentWillUpdate(nextProps, nextState) {
+    //     console.log('[Update] Persons - componentWillUpdate', nextProps, nextState);
+    // }
 
     componentDidUpdate() {
         console.log('[Update] Persons - componentDidUpdate()');

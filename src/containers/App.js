@@ -43,9 +43,10 @@ class App extends PureComponent {
         console.log('App - constructor', props);
     }
 
-    componentWillMount() {
-        console.log('App - componentWillMount()');
-    }
+    // Deprecated
+    // componentWillMount() {
+    //     console.log('App - componentWillMount()');
+    // }
 
     componentDidMount() {
         console.log('App - componentDidMount()');
@@ -62,12 +63,31 @@ class App extends PureComponent {
     //         this.state.showPersons !== nextState.showPersons;
     // }
 
-    componentWillUpdate(nextProps, nextState) {
-        console.log('[Update] App - componentWillUpdate', nextProps, nextState);
+    // Deprecated
+    // componentWillUpdate(nextProps, nextState) {
+    //     console.log('[Update] App - componentWillUpdate', nextProps, nextState);
+    // }
+
+    // Executed after props is updated, and offers a chance to update the state as well
+    // We can do something with the props, and return an updated state
+    // https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
+    // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log('App - getDerivedStateFromProps', nextProps, prevState);
+        return {/* Updated state to be merged into the current state */};
     }
 
-    componentDidUpdate() {
-        console.log('[Update] App - componentDidUpdate()');
+    // A use-case might be scrolling list
+    // Save the user position here, and scroll back to this point in componentDidUpdate after user clicked on save
+    // https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log('App - getSnapshotBeforeUpdate', prevProps, prevState);
+        return "Got snapshot!"; // or null
+    }
+
+    // Get the snapshot here
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('[Update] App - componentDidUpdate', prevProps, prevState, snapshot);
     }
 
     loginHandler = () => {
