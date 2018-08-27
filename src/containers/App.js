@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import classWrap from '../hoc/classWrap';
+import withClass from '../hoc/withClass';
 import Auxiliary from '../hoc/Auxiliary';
 
 class App extends PureComponent {
@@ -119,4 +119,4 @@ class App extends PureComponent {
     }
 }
 
-export default classWrap(App, classes.App);
+export default withClass(App, classes.App);

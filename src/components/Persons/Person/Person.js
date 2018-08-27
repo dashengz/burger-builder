@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; // needed for compiling the jsx syntax below
 import classes from './Person.css';
-import classWrap from '../../../hoc/classWrap';
+import withClass from '../../../hoc/withClass';
 import Auxiliary from '../../../hoc/Auxiliary';
 
 // Use {} to wrap simple javascript calls inside jsx
@@ -42,4 +42,4 @@ class Person extends Component {
 }
 // If using class-based components, use this.name and this.age to reference the dynamic values
 
-export default classWrap(Person, classes.Person);
+export default withClass(Person, classes.Person);

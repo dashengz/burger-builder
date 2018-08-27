@@ -1,6 +1,6 @@
 import React from 'react';
 
-const classWrap = (WrappedComponent, classes) => {
+const withClass = (WrappedComponent, classes) => {
     return (props) => {
         return (
             <div className={classes}>
@@ -10,4 +10,4 @@ const classWrap = (WrappedComponent, classes) => {
     };
 };
 
-export default classWrap;
+export default withClass;
