@@ -43,6 +43,7 @@ class Persons extends PureComponent {
 
     render() {
         console.log('Persons - render()');
+        // React 16+: returning an array of elements is valid
         return this.props.persons.map((person, index) => {
             return <Person
                 click={() => this.props.click(index)}
