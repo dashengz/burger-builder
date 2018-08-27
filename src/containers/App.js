@@ -2,7 +2,8 @@ import React, {PureComponent} from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import ClassWrap from '../hoc/ClassWrap';
+import classWrap from '../hoc/classWrap';
+import Auxiliary from '../hoc/Auxiliary';
 
 class App extends PureComponent {
     constructor(props) { // overriding default constructor
@@ -104,7 +105,7 @@ class App extends PureComponent {
             />;
         }
         return (
-            <ClassWrap classes={classes.App}>{/* An example of using HOC */}
+            <Auxiliary>
                 <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
                 <Cockpit
                     appTitle={this.props.title}
@@ -113,9 +114,9 @@ class App extends PureComponent {
                     click={this.togglePersonsHandler}
                 />
                 {persons}
-            </ClassWrap>
+            </Auxiliary>
         );
     }
 }
 
-export default App;
+export default classWrap(App, classes.App);
