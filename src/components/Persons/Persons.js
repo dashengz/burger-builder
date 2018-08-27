@@ -49,7 +49,6 @@ class Persons extends PureComponent {
         return this.props.persons.map((person, index) => {
             return <Person
                 position={index}
-                auth={this.props.auth}
                 ref={this.lastPerson /* Keeps overwriting the one before, thus the last person remains */}
                 click={() => this.props.click(person.id)}
                 change={event => this.props.change(event, person.id)}

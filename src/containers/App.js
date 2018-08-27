@@ -5,6 +5,11 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
 import Auxiliary from '../hoc/Auxiliary';
 
+// Using the Context API
+// Use this for global contexts, such as authentication state, theme color, etc.
+// But don't overuse this! The normal way of passing state is still valid in most cases
+export const AuthContext = React.createContext(false);
+
 class App extends PureComponent {
     constructor(props) { // overriding default constructor
         super(props); // must call super
@@ -123,7 +128,6 @@ class App extends PureComponent {
         if (this.state.showPersons) {
             persons = <Persons
                 persons={this.state.persons}
-                auth={this.state.isAuthenticated}
                 click={this.deletePersonHandler}
                 change={this.changeNameHandler}
             />;
@@ -138,7 +142,9 @@ class App extends PureComponent {
                     click={this.togglePersonsHandler}
                     login={this.loginHandler}
                 />
-                {persons}
+                <AuthContext.Provider value={this.state.isAuthenticated}>
+                    {persons}
+                </AuthContext.Provider>
             </Auxiliary>
         );
     }

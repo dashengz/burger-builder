@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classes from './Person.css';
 import withClass from '../../../hoc/withClass';
 import Auxiliary from '../../../hoc/Auxiliary';
+import {AuthContext} from "../../../containers/App";
 
 // Use {} to wrap simple javascript calls inside jsx
 class Person extends Component {
@@ -38,8 +39,10 @@ class Person extends Component {
         console.log('Person - render()');
         return (
             <Auxiliary>
+                <AuthContext.Consumer>
+                    {auth => auth ? <p>I'm Authenticated!</p> : null}
+                </AuthContext.Consumer>
                 {/* Use the click prop (switchNameHandler) that was passed to Person */}
-                {this.props.auth ? <p>I'm Authenticated!</p> : null}
                 <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old!</p>
                 <p><small>{this.props.children}</small></p>
                 <input
