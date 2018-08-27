@@ -30,7 +30,8 @@ class App extends PureComponent {
             ],
             otherState: 'Some other value',
             showPersons: false,
-            toggleClicked: 0
+            toggleClicked: 0,
+            isAuthenticated: false
         };
 
         // Exploring lifecycle
@@ -63,6 +64,12 @@ class App extends PureComponent {
     componentDidUpdate() {
         console.log('[Update] App - componentDidUpdate()');
     }
+
+    loginHandler = () => {
+        this.setState({
+            isAuthenticated: true
+        });
+    };
 
     togglePersonsHandler = () => {
         // setState() is handled asynchronously, so the state is unreliable,
@@ -116,6 +123,7 @@ class App extends PureComponent {
         if (this.state.showPersons) {
             persons = <Persons
                 persons={this.state.persons}
+                auth={this.state.isAuthenticated}
                 click={this.deletePersonHandler}
                 change={this.changeNameHandler}
             />;
@@ -128,6 +136,7 @@ class App extends PureComponent {
                     persons={this.state.persons}
                     showPersons={this.state.showPersons}
                     click={this.togglePersonsHandler}
+                    login={this.loginHandler}
                 />
                 {persons}
             </Auxiliary>

@@ -39,6 +39,7 @@ class Person extends Component {
         return (
             <Auxiliary>
                 {/* Use the click prop (switchNameHandler) that was passed to Person */}
+                {this.props.auth ? <p>I'm Authenticated!</p> : null}
                 <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old!</p>
                 <p><small>{this.props.children}</small></p>
                 <input
