@@ -5,6 +5,7 @@ class Persons extends PureComponent {
     constructor(props) {
         super(props);
         console.log('Persons - constructor', props);
+        this.lastPerson = React.createRef();
     }
 
     componentWillMount() {
@@ -13,6 +14,7 @@ class Persons extends PureComponent {
 
     componentDidMount() {
         console.log('Persons - componentDidMount()');
+        this.lastPerson.current.focus();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -47,6 +49,7 @@ class Persons extends PureComponent {
         return this.props.persons.map((person, index) => {
             return <Person
                 position={index}
+                ref={this.lastPerson /* Keeps overwriting the one before, thus the last person remains */}
                 click={() => this.props.click(person.id)}
                 change={event => this.props.change(event, person.id)}
                 name={person.name}

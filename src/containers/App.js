@@ -89,7 +89,6 @@ class App extends PureComponent {
         const newPersons = [...this.state.persons]; // spread, and thus creating a copy
         const personIndex = this.state.persons.findIndex(p => p.id === id);
         newPersons.splice(personIndex, 1);
-        console.log(personIndex, newPersons, this.state.persons);
         this.setState({
             persons: newPersons
         });

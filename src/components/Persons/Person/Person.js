@@ -9,6 +9,7 @@ class Person extends Component {
     constructor(props) {
         super(props);
         console.log('Person - constructor', props);
+        this.inputElement = React.createRef();
     }
 
     componentWillMount() {
@@ -17,12 +18,16 @@ class Person extends Component {
 
     componentDidMount() {
         console.log('Person - componentDidMount()');
-        if (this.props.position === 0) this.inputElement.focus(); // inputElement is available because render() is called before componentDidMount
+        if (this.props.position === 0) this.inputElement.current.focus(); // inputElement is available because render() is called before componentDidMount
     }
 
     componentDidUpdate() {
         console.log('[Update] Person - componentDidUpdate()');
-        if (this.props.position === 0) this.inputElement.focus(); // inputElement is available because render() is called before componentDidMount
+        if (this.props.position === 0) this.inputElement.current.focus(); // inputElement is available because render() is called before componentDidMount
+    }
+
+    focus() {
+        this.inputElement.current.focus();
     }
 
     componentWillUnmount() {
@@ -37,7 +42,7 @@ class Person extends Component {
                 <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old!</p>
                 <p><small>{this.props.children}</small></p>
                 <input
-                    ref={(inp) => {this.inputElement = inp /* inp points to self, and this action stores this <input> as a member for this class */}}
+                    ref={this.inputElement}
                     type="text"
                     onChange={this.props.change}
                     value={this.props.name} />
