@@ -46,7 +46,8 @@ class Persons extends PureComponent {
         // React 16+: returning an array of elements is valid
         return this.props.persons.map((person, index) => {
             return <Person
-                click={() => this.props.click(index)}
+                position={index}
+                click={() => this.props.click(person.id)}
                 change={event => this.props.change(event, person.id)}
                 name={person.name}
                 age={person.age}

@@ -17,12 +17,12 @@ class Person extends Component {
 
     componentDidMount() {
         console.log('Person - componentDidMount()');
+        if (this.props.position === 0) this.inputElement.focus(); // inputElement is available because render() is called before componentDidMount
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Update] Person - shouldComponentUpdate', nextProps, nextState);
-        return this.props.name !== nextProps.name;
-        // No need to re-render if the name is not changed!
+    componentDidUpdate() {
+        console.log('[Update] Person - componentDidUpdate()');
+        if (this.props.position === 0) this.inputElement.focus(); // inputElement is available because render() is called before componentDidMount
     }
 
     componentWillUnmount() {
@@ -36,7 +36,11 @@ class Person extends Component {
                 {/* Use the click prop (switchNameHandler) that was passed to Person */}
                 <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old!</p>
                 <p><small>{this.props.children}</small></p>
-                <input type="text" onChange={this.props.change} value={this.props.name} />
+                <input
+                    ref={(inp) => {this.inputElement = inp /* inp points to self, and this action stores this <input> as a member for this class */}}
+                    type="text"
+                    onChange={this.props.change}
+                    value={this.props.name} />
             </Auxiliary>
         );
     }
@@ -48,7 +52,8 @@ Person.propTypes = {
     click: PropTypes.func,
     name: PropTypes.string,
     age: PropTypes.number,
-    change: PropTypes.func
+    change: PropTypes.func,
+    position: PropTypes.number
 };
 
 export default withClass(Person, classes.Person);
