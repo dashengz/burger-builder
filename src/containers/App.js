@@ -29,7 +29,8 @@ class App extends PureComponent {
                 }
             ],
             otherState: 'Some other value',
-            showPersons: false
+            showPersons: false,
+            toggleClicked: 0
         };
 
         // Exploring lifecycle
@@ -64,9 +65,23 @@ class App extends PureComponent {
     }
 
     togglePersonsHandler = () => {
-        this.setState({
-            showPersons: !this.state.showPersons
-        }); // only the aforementioned property gets changed
+        // setState() is handled asynchronously, so the state is unreliable,
+        // if other components are also modifying it
+
+        // If you know that there is another component also changing this state,
+        // Then use the below version of setState
+
+        // this.setState({
+        //     showPersons: !this.state.showPersons,
+        //     toggleClicked: this.state.toggleClicked + 1
+        // }); // only the aforementioned property gets changed
+
+        this.setState((prevState, props) => {
+            return {
+                showPersons: !prevState.showPersons,
+                toggleClicked: prevState.toggleClicked + 1
+            };
+        });
     };
 
     deletePersonHandler = (personIndex) => {
