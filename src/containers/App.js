@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
-class App extends Component {
+class App extends PureComponent {
     constructor(props) { // overriding default constructor
         super(props); // must call super
         // for older version of create-react-app setup, es6+ syntax not yet supported,
@@ -42,10 +42,16 @@ class App extends Component {
         console.log('App - componentDidMount()');
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Update] App - shouldComponentUpdate', nextProps, nextState);
-        return true;
-    }
+    // With PureComponent, React takes care of shouldComponentUpdate for us,
+    // It performs shallow checks for the states and props, and returns false if nothing has changed.
+    // However, we shouldn't use this all the time,
+    // because we might want a component to NOT update even if one prop has changed.
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[Update] App - shouldComponentUpdate', nextProps, nextState);
+    //     return this.state.persons !== nextState.persons ||
+    //         this.state.showPersons !== nextState.showPersons;
+    // }
 
     componentWillUpdate(nextProps, nextState) {
         console.log('[Update] App - componentWillUpdate', nextProps, nextState);
@@ -98,6 +104,7 @@ class App extends Component {
         }
         return (
             <div className={classes.App}>
+                <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
                 <Cockpit
                     appTitle={this.props.title}
                     persons={this.state.persons}
