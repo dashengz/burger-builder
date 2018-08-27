@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './Cockpit.css';
-import Aux from '../../hoc/Aux';
 
 const cockpit = (props) => {
     let buttonClass = classes.Button;
@@ -11,14 +10,14 @@ const cockpit = (props) => {
     if (props.persons.length < 3) classNames.push(classes.red);
     if (props.persons.length < 2) classNames.push(classes.bold);
     return (
-        <Aux>
+        <React.Fragment>
             <h1>{props.appTitle}</h1>
             <p className={classNames.join(' ')}>This is really working!</p>
             <button
                 className={buttonClass}
                 onClick={props.click}
             >Toggle Persons</button>
-        </Aux>
+        </React.Fragment>
     );
 
     // Array of element: valid in React 16+
