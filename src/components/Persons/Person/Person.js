@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; // needed for compiling the jsx syntax below
 import classes from './Person.css';
+import ClassWrap from '../../../hoc/ClassWrap';
 
 // Use {} to wrap simple javascript calls inside jsx
 class Person extends Component {
@@ -29,12 +30,12 @@ class Person extends Component {
     render() {
         console.log('Person - render()');
         return (
-            <div className={classes.Person}>
+            <ClassWrap classes={classes.Person}>
                 {/* Use the click prop (switchNameHandler) that was passed to Person */}
                 <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old!</p>
                 <p><small>{this.props.children}</small></p>
                 <input type="text" onChange={this.props.change} value={this.props.name} />
-            </div>
+            </ClassWrap>
         );
     }
 }

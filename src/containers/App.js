@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import ClassWrap from '../hoc/ClassWrap';
 
 class App extends PureComponent {
     constructor(props) { // overriding default constructor
@@ -103,7 +104,7 @@ class App extends PureComponent {
             />;
         }
         return (
-            <div className={classes.App}>
+            <ClassWrap classes={classes.App}>{/* An example of using HOC */}
                 <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
                 <Cockpit
                     appTitle={this.props.title}
@@ -112,7 +113,7 @@ class App extends PureComponent {
                     click={this.togglePersonsHandler}
                 />
                 {persons}
-            </div>
+            </ClassWrap>
         );
     }
 }
