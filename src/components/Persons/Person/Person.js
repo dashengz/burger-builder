@@ -15,6 +15,17 @@ class Person extends Component {
     componentDidMount() {
         console.log('Person - componentDidMount()');
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[Update] Person - shouldComponentUpdate', nextProps, nextState);
+        return this.props.name !== nextProps.name;
+        // No need to re-render if the name is not changed!
+    }
+
+    componentWillUnmount() {
+        console.log('[Unmount] Person - componentWillUnmount()');
+    }
+
     render() {
         console.log('Person - render()');
         return (

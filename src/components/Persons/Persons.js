@@ -14,6 +14,33 @@ class Persons extends Component {
     componentDidMount() {
         console.log('Persons - componentDidMount()');
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('[Update] Persons - componentWillReceiveProps', nextProps);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[Update] Persons - shouldComponentUpdate', nextProps, nextState);
+        return nextProps.persons !== this.props.persons;
+        // Not required for every component!
+        // If the component receives a lot of props,
+        // but we only want to re-render the component if one of the prop is changed,
+        // Then, shouldComponentUpdate() is useful, as we can check that specific prop change,
+        // and stop the render process to save performance.
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log('[Update] Persons - componentWillUpdate', nextProps, nextState);
+    }
+
+    componentDidUpdate() {
+        console.log('[Update] Persons - componentDidUpdate()');
+    }
+
+    componentWillUnmount() {
+        console.log('[Unmount] Persons - componentWillUnmount()');
+    }
+
     render() {
         console.log('Persons - render()');
         return this.props.persons.map((person, index) => {
