@@ -1,4 +1,5 @@
 import React, {Component} from 'react'; // needed for compiling the jsx syntax below
+import PropTypes from 'prop-types';
 import classes from './Person.css';
 import withClass from '../../../hoc/withClass';
 import Auxiliary from '../../../hoc/Auxiliary';
@@ -41,5 +42,13 @@ class Person extends Component {
     }
 }
 // If using class-based components, use this.name and this.age to reference the dynamic values
+
+// For class-based components, we can define PropTypes:
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    change: PropTypes.func
+};
 
 export default withClass(Person, classes.Person);
