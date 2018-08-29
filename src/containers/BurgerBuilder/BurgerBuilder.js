@@ -18,22 +18,34 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: BURGER_BASE_PRICE
+        totalPrice: BURGER_BASE_PRICE,
+        purchasable: false
     };
 
     addIngredientHandler = (type, remove) => {
-        const updatedIngredients = {...this.state.ingredients};
-        updatedIngredients[type] = updatedIngredients[type] + (remove ? -1 : 1);
-        const updateTotalPrice = this.state.totalPrice + INGREDIENT_PRICES[type] * (remove ? -1 : 1);
-        this.setState({
-            ingredients: updatedIngredients,
-            totalPrice: updateTotalPrice
+        this.setState(prevState => {
+            const updatedIngredients = {...prevState.ingredients};
+            updatedIngredients[type] = updatedIngredients[type] + (remove ? -1 : 1);
+            const updateTotalPrice = prevState.totalPrice + INGREDIENT_PRICES[type] * (remove ? -1 : 1);
+            return {
+                ingredients: updatedIngredients,
+                totalPrice: updateTotalPrice
+            }
         });
+        this.updatePurchaseStatusHandler();
     };
 
     removeIngredientHandler = (type) => {
         if (this.state.ingredients[type] < 1) return;
         this.addIngredientHandler(type, true);
+    };
+
+    updatePurchaseStatusHandler = () => {
+        this.setState(prevState => {
+            return {
+                purchasable: prevState.totalPrice > BURGER_BASE_PRICE
+            }
+        });
     };
 
     render() {
@@ -45,7 +57,8 @@ class BurgerBuilder extends Component {
                         price={this.state.totalPrice}
                         ingredients={this.state.ingredients}
                         add={this.addIngredientHandler}
-                        remove={this.removeIngredientHandler}/>
+                        remove={this.removeIngredientHandler}
+                        purchasable={this.state.purchasable}/>
                 </div>
             </React.Fragment>
         );
