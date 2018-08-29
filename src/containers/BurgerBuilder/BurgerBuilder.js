@@ -57,10 +57,16 @@ class BurgerBuilder extends Component {
         });
     };
 
+    cancelPurchaseHandler = () => {
+        this.setState({
+            purchasing: false
+        });
+    };
+
     render() {
         return (
             <React.Fragment>
-                <Modal show={this.state.purchasing}>
+                <Modal show={this.state.purchasing} dismiss={this.cancelPurchaseHandler}>
                     <OrderSummary ingredients={this.state.ingredients} />
                 </Modal>
                 <div><Burger ingredients={this.state.ingredients} /></div>
