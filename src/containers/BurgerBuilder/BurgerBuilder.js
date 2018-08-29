@@ -63,11 +63,18 @@ class BurgerBuilder extends Component {
         });
     };
 
+    checkoutHandler = () => {
+        alert('Checkout!');
+    };
+
     render() {
         return (
             <React.Fragment>
                 <Modal show={this.state.purchasing} dismiss={this.cancelPurchaseHandler}>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        cancel={this.cancelPurchaseHandler}
+                        checkout={this.checkoutHandler}/>
                 </Modal>
                 <div><Burger ingredients={this.state.ingredients} /></div>
                 <div>
