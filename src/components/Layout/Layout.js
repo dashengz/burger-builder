@@ -8,7 +8,7 @@ class Layout extends Component {
     // We can do that by using the state, thus we need to change Layout to class-based component
 
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     };
 
     sideDrawerClosedHandler = () => {
@@ -17,10 +17,18 @@ class Layout extends Component {
         });
     };
 
+    sideDrawerToggleHandler = () => {
+        this.setState(prevState => {
+            return {
+                showSideDrawer: !prevState.showSideDrawer
+            };
+        });
+    };
+
     render() {
         return (
             <React.Fragment>
-                <Toolbar />
+                <Toolbar click={this.sideDrawerToggleHandler}/>
                 <SideDrawer show={this.state.showSideDrawer} close={this.sideDrawerClosedHandler}/>
                 <main className={classes.Content}>
                     {this.props.children}
