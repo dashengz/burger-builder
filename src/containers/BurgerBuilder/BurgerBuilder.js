@@ -18,17 +18,27 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: BURGER_BASE_PRICE,
         purchasable: false,
         purchasing: false,
-        loading: false
+        loading: false,
+        error: null
     };
+
+    componentDidMount() {
+        axios.get('/ingredients.json')
+            .then(response => {
+                this.setState({
+                    ingredients: response.data
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    error: 'Ingredients Failed to load!'
+                });
+            });
+    }
 
     addIngredientHandler = (type, remove) => {
         this.setState(prevState => {
@@ -106,10 +116,12 @@ class BurgerBuilder extends Component {
     render() {
         return (
             <React.Fragment>
-                <Modal show={this.state.purchasing} dismiss={this.cancelPurchaseHandler}>
+                <Modal
+                    show={this.state.purchasing}
+                    dismiss={this.cancelPurchaseHandler}>
                     {
-                        this.state.loading ?
-                            <Spinner /> :
+                        this.state.loading || !this.state.ingredients ?
+                            <Spinner/> :
                             <OrderSummary
                                 price={this.state.totalPrice}
                                 ingredients={this.state.ingredients}
@@ -117,16 +129,23 @@ class BurgerBuilder extends Component {
                                 checkout={this.checkoutHandler}/>
                     }
                 </Modal>
-                <div><Burger ingredients={this.state.ingredients} /></div>
-                <div>
-                    <BuildControls
-                        price={this.state.totalPrice}
-                        ingredients={this.state.ingredients}
-                        add={this.addIngredientHandler}
-                        remove={this.removeIngredientHandler}
-                        purchasable={this.state.purchasable}
-                        order={this.purchaseHandler}/>
-                </div>
+                {
+                    !this.state.ingredients ?
+                        this.state.error ? <p style={{
+                            textAlign: 'center'
+                        }}>{this.state.error}</p> : <Spinner/> : (
+                        <React.Fragment>
+                            <Burger ingredients={this.state.ingredients}/>
+                            <BuildControls
+                                price={this.state.totalPrice}
+                                ingredients={this.state.ingredients}
+                                add={this.addIngredientHandler}
+                                remove={this.removeIngredientHandler}
+                                purchasable={this.state.purchasable}
+                                order={this.purchaseHandler}/>
+                        </React.Fragment>
+                    )
+                }
             </React.Fragment>
         );
     }
