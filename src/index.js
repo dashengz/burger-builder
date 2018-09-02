@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
 
-axios.interceptors.request.use(request => {
+const requestInterceptor = axios.interceptors.request.use(request => {
     console.log(request);
     // Edit request config
     return request;
@@ -14,6 +14,9 @@ axios.interceptors.request.use(request => {
     // Forward the errors
     return Promise.reject(error);
 });
+
+// remove the interceptor
+axios.interceptors.request.eject(requestInterceptor);
 
 axios.interceptors.response.use(response => {
     console.log(response);
