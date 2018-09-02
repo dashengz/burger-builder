@@ -7,7 +7,9 @@ class Modal extends Component {
     // we don't have to use PureComponent
 
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show
+        return nextProps.show !== this.props.show ||
+            nextProps.children !== this.props.children;
+
     }
 
     render() {
