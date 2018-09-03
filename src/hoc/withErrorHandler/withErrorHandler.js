@@ -11,17 +11,23 @@ const withErrorHandler = (WrappedComponent, axios) => {
             // Move the interceptors into constructor,
             // so that when the error happens before all children are rendered
             // errors can still be caught
-            axios.interceptors.request.use(request => {
+            this.reqInterceptor = axios.interceptors.request.use(request => {
                 this.setState({
                     error: null
                 });
                 return request;
             });
-            axios.interceptors.response.use(response => response, error => {
+            this.resInterceptor = axios.interceptors.response.use(response => response, error => {
                 this.setState({
                     error: error
                 });
             });
+        }
+
+        componentWillUnmount() {
+            // to prevent our interceptors to be created and left dead in memory
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
         }
 
         errorConfirmedHandler = () => {
