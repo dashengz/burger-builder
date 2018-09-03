@@ -47,6 +47,8 @@ class Posts extends Component {
                         key={post.id}
                         title={post.title}
                         author={post.author}
+                        {...this.props /* One way to pass props down to components */}
+                        match={this.props.match /* One way to pass selected props down to components */}
                         click={() => this.postSelectedHandler(post.id)}/>
                 );
             });
