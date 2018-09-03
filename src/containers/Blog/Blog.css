@@ -15,6 +15,9 @@
     text-decoration: none;
     color: black;
 }
+
+.Blog nav a:active,
+.Blog nav a.active,
 .Blog nav a:focus,
 .Blog nav a:hover {
     color: #fa923f;
