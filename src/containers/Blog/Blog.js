@@ -16,9 +16,7 @@ class Blog extends Component {
                         </ul>
                     </nav>
                 </header>
-                {/* path checks for 'starts with' by default, with 'exact' specified, then match full path */}
-                <Route path="/" exact render={() => <h1>Home</h1>}/>
-                <Route path="/" render={() => <h1>Home 2</h1>}/>
+                <Route path="/" exact component={Posts}/>
             </div>
         );
     }
