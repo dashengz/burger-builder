@@ -7,8 +7,7 @@ import './Posts.css';
 
 class Posts extends Component {
     state = {
-        posts: [],
-        selectedPostId: null
+        posts: []
     };
 
     componentDidMount() {
@@ -31,9 +30,11 @@ class Posts extends Component {
     }
 
     postSelectedHandler = (id) => {
-        this.setState({
-            selectedPostId: id
+        this.props.history.push({
+            pathname: '/' + id
         });
+        // or
+        // this.props.history.push('/' + id);
     };
 
     render() {
@@ -44,14 +45,10 @@ class Posts extends Component {
         if (!this.state.error) {
             posts = this.state.posts.map(post => {
                 return (
-                    <Link
-                        to={'/' + post.id}
-                        key={post.id}>
-                        <Post
-                            title={post.title}
-                            author={post.author}
-                            click={() => this.postSelectedHandler(post.id)}/>
-                    </Link>
+                    <Post
+                        title={post.title}
+                        author={post.author}
+                        click={() => this.postSelectedHandler(post.id)}/>
                 );
             });
         }
