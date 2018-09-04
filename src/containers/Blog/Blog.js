@@ -38,7 +38,7 @@ class Blog extends Component {
                 </header>
                 <Route path="/" exact component={Posts}/>
                 <Route path="/new-post" component={NewPost}/>{/* Putting NewPost before :id so that it won't be overwritten */}
-                <Route path="/:id" component={FullPost}/>
+                <Route path="/:id" component={FullPost}/>{/* Flexible param :id */}
             </div>
         );
     }

@@ -3,10 +3,10 @@
     padding: 16px;
     text-align: center;
     box-shadow: 0 2px 3px #ccc, 0 0 5px #eee;
-    margin: 10px;
     box-sizing: border-box;
     cursor: pointer;
     transition: box-shadow .3s ease;
+    height: 100%;
 }
 
 .Post:hover,
