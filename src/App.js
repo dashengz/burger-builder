@@ -4,10 +4,11 @@ import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
 import {Redirect, Route, Switch} from "react-router-dom";
 import Instructions from "./components/Instructions/Instructions";
+import Navigation from "./components/Navigation/Navigation";
 
 class App extends Component {
     state = {
-        showInstructions: false
+        showInstructions: true
     };
 
     toggleInstructionsHandler = () => {
@@ -21,6 +22,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <Navigation />
                 <Switch>
                     <Route path="/users" exact component={Users}/>
                     <Route path="/courses" exact component={Courses}/>
