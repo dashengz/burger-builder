@@ -23,9 +23,15 @@ class NewPost extends Component {
             author: this.state.author
         }).then(response => {
             console.log(response);
-            this.setState({
-                submitted: true
-            });
+
+            // Manipulate browser history
+            this.props.history.replace('/posts');
+
+            // this.props.history.push('/posts');
+
+            // this.setState({
+            //     submitted: true
+            // });
         })
     };
 
