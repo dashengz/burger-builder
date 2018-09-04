@@ -9,7 +9,7 @@ class Courses extends Component {
             { id: 2, title: 'Vue - The Complete Guide' },
             { id: 3, title: 'PWA - The Complete Guide' }
         ]
-    }
+    };
 
     render () {
         return (
