@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, NavLink} from 'react-router-dom';
+import {Route, NavLink, Switch} from 'react-router-dom';
 
 import './Blog.css';
 import Posts from "./Posts/Posts";
@@ -37,8 +37,10 @@ class Blog extends Component {
                     </nav>
                 </header>
                 <Route path="/" exact component={Posts}/>
-                <Route path="/new-post" component={NewPost}/>{/* Putting NewPost before :id so that it won't be overwritten */}
-                <Route path="/:id" component={FullPost}/>{/* Flexible param :id */}
+                <Switch>
+                    <Route path="/new-post" component={NewPost}/>{/* Putting NewPost before :id so that it won't be overwritten */}
+                    <Route path="/:id" component={FullPost}/>{/* Flexible param :id */}
+                </Switch>
             </div>
         );
     }
