@@ -48,8 +48,11 @@ class Blog extends Component {
                             null
                     }
                     <Route path="/posts" component={Posts}/>
-                    <Redirect from="/" to="/posts"/>
-                    {/* <Route path="/" component={Posts}/> */}
+
+                    {/* Handle 404: Route component without a path, can do 'render' or 'component' */}
+                    <Route render={() => <h1 style={{color: 'red', textAlign: 'center'}}>Not Found!</h1>}/>
+                    {/* One way to handle 404 fallback: <Redirect from="/" to="/posts"/> */}
+                    {/* Catch all url and render posts: <Route path="/" component={Posts}/> */}
                 </Switch>
             </div>
         );
