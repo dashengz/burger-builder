@@ -5,6 +5,7 @@ import Users from './containers/Users/Users';
 import {Redirect, Route, Switch} from "react-router-dom";
 import Instructions from "./components/Instructions/Instructions";
 import Navigation from "./components/Navigation/Navigation";
+import Course from "./containers/Course/Course";
 
 class App extends Component {
     state = {
@@ -26,6 +27,8 @@ class App extends Component {
                 <Switch>
                     <Route path="/users" exact component={Users}/>
                     <Route path="/courses" exact component={Courses}/>
+                    {/*<Route path="/courses/:id/:title" exact component={Course}/>*/}
+                    <Route path="/courses/:id" exact component={Course}/>
                     <Redirect to="/courses"/>
                 </Switch>
                 <Instructions show={this.state.showInstructions} toggle={this.toggleInstructionsHandler} />
