@@ -5,6 +5,7 @@ import Users from './containers/Users/Users';
 import {Redirect, Route, Switch} from "react-router-dom";
 import Instructions from "./components/Instructions/Instructions";
 import Navigation from "./components/Navigation/Navigation";
+import NotFound from "./components/NotFound/NotFound";
 
 class App extends Component {
     state = {
@@ -28,7 +29,9 @@ class App extends Component {
                     <Route path="/courses" component={Courses}/>
                     {/*<Route path="/courses/:id/:title" exact component={Course}/>*/}
                     {/*<Route path="/courses/:id" exact component={Course}/>*/}
-                    <Redirect to="/courses"/>
+                    <Redirect from="/all-courses" to="/courses"/>
+                    <Redirect from="/" exact to="/courses"/>
+                    <Route component={NotFound}/>
                 </Switch>
                 <Instructions show={this.state.showInstructions} toggle={this.toggleInstructionsHandler} />
             </div>

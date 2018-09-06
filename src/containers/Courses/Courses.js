@@ -35,7 +35,7 @@ class Courses extends Component {
                         })
                     }
                 </section>
-                <Route path="/courses/:id" exact component={Course}/>
+                <Route path="/courses/:id" exact render={(props) => <Course {...props} validCourses={this.state.courses}/>}/>
             </div>
         );
     }
