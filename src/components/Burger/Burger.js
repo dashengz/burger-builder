@@ -2,6 +2,7 @@ import React from 'react';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 import classes from './Burger.css';
+// import {withRouter} from "react-router-dom";
 
 const burger = (props) => {
     // props.ingredients is an object, not an array! So we need to transform it first!
@@ -25,4 +26,5 @@ const burger = (props) => {
     );
 };
 
+// export default withRouter(burger); // If we want to pass the closest router props to this component
 export default burger;

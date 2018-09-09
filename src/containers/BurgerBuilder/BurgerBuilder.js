@@ -80,37 +80,38 @@ class BurgerBuilder extends Component {
 
     checkoutHandler = () => {
         // alert('Checkout!');
-        this.setState({
-            loading: true
-        });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice, // shouldn't use this in production, as users might manipulate this price via js; should calculate on server
-            // dummy data
-            customer: {
-                name: 'Max',
-                address: {
-                    street: '42 Test Avenue, Apt 42',
-                    zipCode: '41357',
-                    country: 'Germany'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        };
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({
-                    loading: false,
-                    purchasing: false
-                });
-            })
-            .catch(error => {
-                this.setState({
-                    loading: false,
-                    purchasing: false
-                });
-            });
+        // this.setState({
+        //     loading: true
+        // });
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice, // shouldn't use this in production, as users might manipulate this price via js; should calculate on server
+        //     // dummy data
+        //     customer: {
+        //         name: 'Max',
+        //         address: {
+        //             street: '42 Test Avenue, Apt 42',
+        //             zipCode: '41357',
+        //             country: 'Germany'
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // };
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         this.setState({
+        //             loading: false,
+        //             purchasing: false
+        //         });
+        //     })
+        //     .catch(error => {
+        //         this.setState({
+        //             loading: false,
+        //             purchasing: false
+        //         });
+        //     });
+        this.props.history.push('/checkout');
     };
 
     render() {
