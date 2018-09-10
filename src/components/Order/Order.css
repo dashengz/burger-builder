@@ -4,3 +4,17 @@
     padding: 10px;
     margin: 10px auto;
 }
+
+.Ingredient {
+    text-transform: capitalize;
+    display: inline-block;
+    margin: 0 8px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+@media (min-width: 600px) {
+    .Order {
+        width: 500px;
+    }
+}
