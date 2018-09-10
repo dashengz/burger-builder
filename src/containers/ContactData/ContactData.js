@@ -26,7 +26,7 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             // shouldn't use this in production
             // users might manipulate this price via js; should calculate on server
-            price: this.state.totalPrice, // dummy data
+            price: this.props.price, // dummy data
             customer: {
                 name: 'Max',
                 address: {
