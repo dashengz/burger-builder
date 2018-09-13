@@ -17,7 +17,19 @@ const input = (props) => {
             break;
             // dropdown, select, etc.
         case 'select':
-            inputElement = <select />;
+            inputElement = (
+                <select
+                    className={classes.InputElement}
+                    value={props.value}>
+                    {
+                        props.elementConfig.options.map(o => (
+                            <option key={o.value} value={o.value}>
+                                {o.displayValue}
+                            </option>
+                        ))
+                    }
+                </select>
+            );
             break;
         default:
             inputElement = <input

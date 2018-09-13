@@ -102,10 +102,15 @@ class ContactData extends Component {
                 {
                     this.state.loading ? <Spinner /> :
                         <form>
-                            <Input elementType={} elementConfig={} value={} />
-                            <Input inputtype="input" type="email" name="email" placeholder="Your Email" />
-                            <Input inputtype="input" type="text" name="street" placeholder="Street Address" />
-                            <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
+                            {
+                                Object.keys(this.state.orderForm).map(e => (
+                                    <Input
+                                        key={e}
+                                        elementType={this.state.orderForm[e].elementType}
+                                        elementConfig={this.state.orderForm[e].elementConfig}
+                                        value={this.state.orderForm[e].value} />
+                                ))
+                            }
                             <Button type="Success" click={this.orderHandler}>ORDER</Button>
                         </form>
                 }
