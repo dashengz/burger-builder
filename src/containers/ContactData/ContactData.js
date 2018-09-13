@@ -93,6 +93,9 @@ class ContactData extends Component {
 
     checkValidity(value, rules) {
         let isValid = true;
+
+        if (!rules) return isValid;
+
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
@@ -165,6 +168,7 @@ class ContactData extends Component {
                                         elementType={this.state.orderForm[e].elementType}
                                         elementConfig={this.state.orderForm[e].elementConfig}
                                         value={this.state.orderForm[e].value}
+                                        invalid={this.state.orderForm[e].isValid === false}
                                         change={(event) => this.inputChangeHandler(event, e)}/>
                                 ))
                             }

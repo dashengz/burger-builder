@@ -26,3 +26,8 @@
 }
 
 /* disabled style, etc. */
+
+.InputElement.Invalid {
+    border: 1px solid red;
+    background-color: #ffdcd8;
+}
