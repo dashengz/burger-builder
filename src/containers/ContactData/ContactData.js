@@ -79,7 +79,12 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             // shouldn't use this in production
             // users might manipulate this price via js; should calculate on server
-            price: this.props.price
+            price: this.props.price,
+            orderData: Object.keys(this.state.orderForm)
+                .reduce((prev, cur) => ({
+                    ...prev,
+                    [cur]: this.state.orderForm[cur].value
+                }), {})
         };
         axios.post('/orders.json', order)
             .then(response => {
