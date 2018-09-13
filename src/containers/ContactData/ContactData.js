@@ -44,7 +44,7 @@ class ContactData extends Component {
             email: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'email',
                     placeholder: 'Your E-mail'
                 },
                 value: ''
@@ -95,6 +95,18 @@ class ContactData extends Component {
             });
     };
 
+    inputChangeHandler = (event, id) => {
+        // need to deep clone the objects that we would change
+        // so that we don't modify the original state
+        const updatedOrderForm = {...this.state.orderForm};
+        const updatedElement = {...updatedOrderForm[id]};
+        updatedElement.value = event.target.value;
+        updatedOrderForm[id] = updatedElement;
+        this.setState({
+            orderForm: updatedOrderForm
+        });
+    };
+
     render() {
         return (
             <div className={classes.ContactData}>
@@ -108,7 +120,8 @@ class ContactData extends Component {
                                         key={e}
                                         elementType={this.state.orderForm[e].elementType}
                                         elementConfig={this.state.orderForm[e].elementConfig}
-                                        value={this.state.orderForm[e].value} />
+                                        value={this.state.orderForm[e].value}
+                                        change={(event) => this.inputChangeHandler(event, e)}/>
                                 ))
                             }
                             <Button type="Success" click={this.orderHandler}>ORDER</Button>
