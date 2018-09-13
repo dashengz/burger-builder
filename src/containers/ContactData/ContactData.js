@@ -19,7 +19,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             street: {
                 elementType: 'input',
@@ -31,7 +32,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             zipCode: {
                 elementType: 'input',
@@ -46,6 +48,7 @@ class ContactData extends Component {
                     maxLength: 5
                 },
                 isValid: false,
+                isTouched: false
             },
             country: {
                 elementType: 'input',
@@ -57,7 +60,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             email: {
                 elementType: 'input',
@@ -69,7 +73,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -147,7 +152,8 @@ class ContactData extends Component {
         updatedElement.value = event.target.value;
         // check validity
         updatedElement.isValid = this.checkValidity(event.target.value, updatedElement.validation);
-        console.log(updatedElement);
+        // register touched
+        updatedElement.isTouched = true;
         updatedOrderForm[id] = updatedElement;
         this.setState({
             orderForm: updatedOrderForm
@@ -162,15 +168,19 @@ class ContactData extends Component {
                     this.state.loading ? <Spinner /> :
                         <form>
                             {
-                                Object.keys(this.state.orderForm).map(e => (
-                                    <Input
-                                        key={e}
-                                        elementType={this.state.orderForm[e].elementType}
-                                        elementConfig={this.state.orderForm[e].elementConfig}
-                                        value={this.state.orderForm[e].value}
-                                        invalid={this.state.orderForm[e].isValid === false}
-                                        change={(event) => this.inputChangeHandler(event, e)}/>
-                                ))
+                                Object.keys(this.state.orderForm).map(e => {
+                                    const element = this.state.orderForm[e];
+                                    return (
+                                        <Input
+                                            key={e}
+                                            elementType={element.elementType}
+                                            elementConfig={element.elementConfig}
+                                            value={element.value}
+                                            invalid={element.isValid === false}
+                                            touched={element.isTouched}
+                                            change={(event) => this.inputChangeHandler(event, e)}/>
+                                    );
+                                })
                             }
                             <Button type="Success" click={this.orderHandler}>ORDER</Button>
                         </form>
