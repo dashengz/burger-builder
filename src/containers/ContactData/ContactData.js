@@ -20,7 +20,8 @@ class ContactData extends Component {
                     required: true
                 },
                 isValid: false,
-                isTouched: false
+                isTouched: false,
+                errorMessage: 'Please enter your name!'
             },
             street: {
                 elementType: 'input',
@@ -33,7 +34,8 @@ class ContactData extends Component {
                     required: true
                 },
                 isValid: false,
-                isTouched: false
+                isTouched: false,
+                errorMessage: 'Please enter your valid address!'
             },
             zipCode: {
                 elementType: 'input',
@@ -48,7 +50,8 @@ class ContactData extends Component {
                     maxLength: 5
                 },
                 isValid: false,
-                isTouched: false
+                isTouched: false,
+                errorMessage: 'Please enter a five-digit zip code!'
             },
             country: {
                 elementType: 'input',
@@ -61,7 +64,8 @@ class ContactData extends Component {
                     required: true
                 },
                 isValid: false,
-                isTouched: false
+                isTouched: false,
+                errorMessage: 'Please enter your country name!'
             },
             email: {
                 elementType: 'input',
@@ -74,7 +78,8 @@ class ContactData extends Component {
                     required: true
                 },
                 isValid: false,
-                isTouched: false
+                isTouched: false,
+                errorMessage: 'Please enter a valid e-mail!'
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -178,6 +183,7 @@ class ContactData extends Component {
                                             value={element.value}
                                             invalid={element.isValid === false}
                                             touched={element.isTouched}
+                                            errorMessage={element.errorMessage}
                                             change={(event) => this.inputChangeHandler(event, e)}/>
                                     );
                                 })

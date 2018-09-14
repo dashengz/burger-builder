@@ -3,10 +3,17 @@ import classes from './Input.css';
 
 const input = (props) => {
     let inputElement = null;
+    let errorMessage = null;
     const inputClasses = [
         classes.InputElement
     ];
-    if (props.invalid && props.touched) inputClasses.push(classes.Invalid);
+    if (props.invalid && props.touched) {
+        inputClasses.push(classes.Invalid);
+        errorMessage = <p style={{
+            color: 'red',
+            margin: '5px'
+        }}><small>{props.errorMessage}</small></p>
+    }
     switch (props.elementType) {
         case 'input':
             inputElement = <input
@@ -50,6 +57,7 @@ const input = (props) => {
         <div className={classes.Input}>
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
+            {errorMessage}
         </div>
     );
 };
