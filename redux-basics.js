@@ -35,6 +35,11 @@ const store = createStore(rootReducer);
 
 console.log(store.getState()); // will be printed to console if we run 'node redux-basics.js'
 
+// Subscription: usually setup after creating the store
+store.subscribe(() => { // the function doesn't have arguments
+    console.log('[Subscription]', store.getState()); // executed whenever an action occurs and the state has been updated
+});
+
 // Dispatching Action
 store.dispatch({
     type: 'INC_COUNTER' // 'type' must be specified; ALL CAPS is the convention
@@ -44,5 +49,3 @@ store.dispatch({
     value: 10 // Additional payload; can be anything you want: js objects, string, number, ...
 });
 console.log(store.getState());
-
-// Subscription
