@@ -95,9 +95,10 @@ class ContactData extends Component {
                         }
                     ]
                 },
-                value: ''
+                value: 'fastest'
             }
         },
+        isValidForm: false,
         loading: false
     };
 
@@ -160,8 +161,13 @@ class ContactData extends Component {
         // register touched
         updatedElement.isTouched = true;
         updatedOrderForm[id] = updatedElement;
+
         this.setState({
-            orderForm: updatedOrderForm
+            orderForm: updatedOrderForm,
+            // set overall form validity
+            isValidForm: Object.keys(updatedOrderForm).reduce((prev, cur) =>
+                updatedOrderForm[cur].isValid !== false && prev,
+                true)
         });
     };
 
@@ -188,7 +194,10 @@ class ContactData extends Component {
                                     );
                                 })
                             }
-                            <Button type="Success" click={this.orderHandler}>ORDER</Button>
+                            <Button
+                                type="Success"
+                                click={this.orderHandler}
+                                disabled={!this.state.isValidForm}>ORDER</Button>
                         </form>
                 }
             </div>
