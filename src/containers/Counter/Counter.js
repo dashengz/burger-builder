@@ -1,37 +1,11 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import {connect} from "react-redux";
+import * as actionTypes from '../../store/actions';
 
 class Counter extends Component {
-
-    counterChangedHandler = (action, value) => {
-        switch (action) {
-            case 'inc':
-                this.setState((prevState) => {
-                    return {counter: prevState.counter + 1}
-                });
-                break;
-            case 'dec':
-                this.setState((prevState) => {
-                    return {counter: prevState.counter - 1}
-                });
-                break;
-            case 'add':
-                this.setState((prevState) => {
-                    return {counter: prevState.counter + value}
-                });
-                break;
-            case 'sub':
-                this.setState((prevState) => {
-                    return {counter: prevState.counter - value}
-                });
-                break;
-            default:
-
-        }
-    };
 
     render() {
         return (
@@ -66,12 +40,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
-        onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
-        onAddCounter: (value) => dispatch({type: 'ADD', value: value}),
-        onSubtractCounter: (value) => dispatch({type: 'SUBTRACT', value: value}),
-        onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
-        onDeleteResult: (id) => dispatch({type: 'DELETE_RESULT', resultElementId: id})
+        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        onAddCounter: (value) => dispatch({type: actionTypes.ADD, value: value}),
+        onSubtractCounter: (value) => dispatch({type: actionTypes.SUBTRACT, value: value}),
+        onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElementId: id})
     }; // onIncrementCounter becomes available in props
 };
 
