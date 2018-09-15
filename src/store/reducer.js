@@ -32,6 +32,14 @@ const reducer = (state = initialState, action) => {
                     value: state.counter
                 })
             };
+        case 'DELETE_RESULT':
+            // Option 1: shallow copy and use splice()
+            // ...
+            return {
+                ...state,
+                // Option 2: filter() doesn't mutate original array
+                results: state.results.filter(r => r.id !== action.resultElementId)
+            };
         default:
     }
     return state;
