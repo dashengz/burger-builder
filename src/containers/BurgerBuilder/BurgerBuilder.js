@@ -49,11 +49,7 @@ class BurgerBuilder extends Component {
 
     checkoutHandler = () => {
         this.props.history.push({
-            pathname: '/checkout',
-            // Build query params
-            search: '?' +
-                Object.keys(this.state.ingredients).map(i => i + '=' + this.state.ingredients[i]).join('&') +
-                '&price=' + this.state.totalPrice
+            pathname: '/checkout'
         });
     };
 
