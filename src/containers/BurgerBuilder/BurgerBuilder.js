@@ -9,20 +9,11 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import {connect} from "react-redux";
-
-const BURGER_BASE_PRICE = 4;
-const INGREDIENT_PRICES = {
-    salad: 0.5,
-    bacon: 0.7,
-    cheese: 0.4,
-    meat: 1.3
-};
+import {BURGER_BASE_PRICE} from "../../constants";
 
 class BurgerBuilder extends Component {
     state = {
-        // ingredients: null,
-        // totalPrice: BURGER_BASE_PRICE,
-        purchasable: false,
+        // Local UI states
         purchasing: false,
         loading: false,
         error: null
@@ -43,32 +34,6 @@ class BurgerBuilder extends Component {
         //         });
         //     });
     }
-
-    addIngredientHandler = (type, remove) => {
-        this.setState(prevState => {
-            const updatedIngredients = {...prevState.ingredients};
-            updatedIngredients[type] = updatedIngredients[type] + (remove ? -1 : 1);
-            const updateTotalPrice = prevState.totalPrice + INGREDIENT_PRICES[type] * (remove ? -1 : 1);
-            return {
-                ingredients: updatedIngredients,
-                totalPrice: updateTotalPrice
-            }
-        });
-        this.updatePurchaseStatusHandler();
-    };
-
-    removeIngredientHandler = (type) => {
-        if (this.state.ingredients[type] < 1) return;
-        this.addIngredientHandler(type, true);
-    };
-
-    updatePurchaseStatusHandler = () => {
-        this.setState(prevState => {
-            return {
-                purchasable: prevState.totalPrice > BURGER_BASE_PRICE
-            }
-        });
-    };
 
     purchaseHandler = () => {
         this.setState({
@@ -120,7 +85,7 @@ class BurgerBuilder extends Component {
                                 ingredients={this.props.ingredients}
                                 add={this.props.onAddIngredient}
                                 remove={this.props.onRemoveIngredient}
-                                purchasable={this.state.purchasable}
+                                purchasable={this.props.price > BURGER_BASE_PRICE}
                                 order={this.purchaseHandler}/>
                         </React.Fragment>
                     )
@@ -130,6 +95,7 @@ class BurgerBuilder extends Component {
     }
 }
 
+// Redux-managed states
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
