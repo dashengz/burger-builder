@@ -27,17 +27,19 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
-        axios.get('/ingredients.json')
-            .then(response => {
-                this.setState({
-                    ingredients: response.data
-                })
-            })
-            .catch(error => {
-                this.setState({
-                    error: 'Ingredients Failed to load!'
-                });
-            });
+        // Commented out until we learn how to handle async with redux
+
+        // axios.get('/ingredients.json')
+        //     .then(response => {
+        //         this.setState({
+        //             ingredients: response.data
+        //         })
+        //     })
+        //     .catch(error => {
+        //         this.setState({
+        //             error: 'Ingredients Failed to load!'
+        //         });
+        //     });
     }
 
     addIngredientHandler = (type, remove) => {
