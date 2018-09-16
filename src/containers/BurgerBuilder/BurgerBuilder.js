@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from '../../axios-orders';
+import * as actionTypes from '../../store/actions';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -7,6 +8,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import {connect} from "react-redux";
 
 const BURGER_BASE_PRICE = 4;
 const INGREDIENT_PRICES = {
@@ -18,7 +20,7 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
     state = {
-        ingredients: null,
+        // ingredients: null,
         totalPrice: BURGER_BASE_PRICE,
         purchasable: false,
         purchasing: false,
@@ -97,27 +99,27 @@ class BurgerBuilder extends Component {
                     show={this.state.purchasing}
                     dismiss={this.cancelPurchaseHandler}>
                     {
-                        this.state.loading || !this.state.ingredients ?
+                        this.state.loading || !this.props.ingredients ?
                             <Spinner/> :
                             <OrderSummary
                                 price={this.state.totalPrice}
-                                ingredients={this.state.ingredients}
+                                ingredients={this.props.ingredients}
                                 cancel={this.cancelPurchaseHandler}
                                 checkout={this.checkoutHandler}/>
                     }
                 </Modal>
                 {
-                    !this.state.ingredients ?
+                    !this.props.ingredients ?
                         this.state.error ? <p style={{
                             textAlign: 'center'
                         }}>{this.state.error}</p> : <Spinner/> : (
                         <React.Fragment>
-                            <Burger ingredients={this.state.ingredients}/>
+                            <Burger ingredients={this.props.ingredients}/>
                             <BuildControls
                                 price={this.state.totalPrice}
-                                ingredients={this.state.ingredients}
-                                add={this.addIngredientHandler}
-                                remove={this.removeIngredientHandler}
+                                ingredients={this.props.ingredients}
+                                add={this.props.onAddIngredient}
+                                remove={this.props.onRemoveIngredient}
                                 purchasable={this.state.purchasable}
                                 order={this.purchaseHandler}/>
                         </React.Fragment>
@@ -128,4 +130,17 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddIngredient: (name) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: name}),
+        onRemoveIngredient: (name) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: name})
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
