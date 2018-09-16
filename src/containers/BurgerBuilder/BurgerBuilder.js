@@ -21,7 +21,7 @@ const INGREDIENT_PRICES = {
 class BurgerBuilder extends Component {
     state = {
         // ingredients: null,
-        totalPrice: BURGER_BASE_PRICE,
+        // totalPrice: BURGER_BASE_PRICE,
         purchasable: false,
         purchasing: false,
         loading: false,
@@ -102,7 +102,7 @@ class BurgerBuilder extends Component {
                         this.state.loading || !this.props.ingredients ?
                             <Spinner/> :
                             <OrderSummary
-                                price={this.state.totalPrice}
+                                price={this.props.price}
                                 ingredients={this.props.ingredients}
                                 cancel={this.cancelPurchaseHandler}
                                 checkout={this.checkoutHandler}/>
@@ -116,7 +116,7 @@ class BurgerBuilder extends Component {
                         <React.Fragment>
                             <Burger ingredients={this.props.ingredients}/>
                             <BuildControls
-                                price={this.state.totalPrice}
+                                price={this.props.price}
                                 ingredients={this.props.ingredients}
                                 add={this.props.onAddIngredient}
                                 remove={this.props.onRemoveIngredient}
@@ -132,7 +132,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients
+        ingredients: state.ingredients,
+        price: state.totalPrice
     };
 };
 
