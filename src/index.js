@@ -8,6 +8,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import counterReducer from "./store/reducers/counter";
 import resultReducer from "./store/reducers/result";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
     ctr: counterReducer,
@@ -28,7 +29,7 @@ const logger = store => {
 // Make use of the redux devtools extension
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 
 // Use Provider to connect redux to react, and pass store into our application
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
