@@ -28,10 +28,10 @@ export const purchaseBurger = (orderData) => {
         axios.post('/orders.json', orderData)
             .then(response => {
                 console.log(response.data);
-                purchaseBurgerSuccess(response.data, orderData);
+                dispatch(purchaseBurgerSuccess(response.data.name, orderData));
             })
             .catch(error => {
-                purchaseBurgerFailed(error);
+                dispatch(purchaseBurgerFailed(error));
             });
     }
 };

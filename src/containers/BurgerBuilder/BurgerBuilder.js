@@ -81,9 +81,9 @@ class BurgerBuilder extends Component {
 // Redux-managed states
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        price: state.totalPrice,
-        error: state.error
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     };
 };
 
