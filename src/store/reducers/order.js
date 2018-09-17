@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 purchased: false
-            }
+            };
         case actionTypes.PURCHASE_BURGER_START:
             return {
                 ...state,
@@ -29,6 +29,22 @@ const reducer = (state = initialState, action) => {
                 })
             };
         case actionTypes.PURCHASE_BURGER_FAILED:
+            return {
+                ...state,
+                loading: false
+            };
+        case actionTypes.FETCH_ORDERS_START:
+            return {
+                ...state,
+                loading: true // reuse the same loading state, because we can only be on one page at a time
+            };
+        case actionTypes.FETCH_ORDERS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                orders: action.orders
+            };
+        case actionTypes.FETCH_ORDERS_FAILED:
             return {
                 ...state,
                 loading: false

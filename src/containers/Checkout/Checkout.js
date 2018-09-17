@@ -18,7 +18,7 @@ class Checkout extends Component {
         return this.props.ingredients ?
             (
                 <div>
-                    {this.props.purchased ? <Redirect to="/"/> : null}
+                    {this.props.purchased ? <Redirect to="/"/> : null /* Redirect if purchase has finished */}
                     <CheckoutSummary
                         ingredients={this.props.ingredients}
                         cancel={this.cancelHandler}
@@ -27,7 +27,7 @@ class Checkout extends Component {
                         path={this.props.match.path + '/contact-data'}
                         component={ContactData}/>
                 </div>
-            ) : <Redirect to="/"/>
+            ) : <Redirect to="/"/> /* Redirect if ingredients haven't been loaded */
     }
 }
 
