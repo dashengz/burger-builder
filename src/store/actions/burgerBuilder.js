@@ -22,10 +22,9 @@ export const setIngredients = ingredients => {
     }
 };
 
-export const fetchIngredientsFailed = errorMessage => {
+export const fetchIngredientsFailed = () => {
     return {
-        type: actionTypes.FETCH_INGREDIENTS_FAILED,
-        errorMessage: errorMessage
+        type: actionTypes.FETCH_INGREDIENTS_FAILED
     }
 };
 
@@ -36,7 +35,7 @@ export const initIngredients = () => {
                 dispatch(setIngredients(response.data));
             })
             .catch(error => {
-                dispatch(fetchIngredientsFailed('Ingredients Failed to load!'));
+                dispatch(fetchIngredientsFailed());
             });
     }
 };

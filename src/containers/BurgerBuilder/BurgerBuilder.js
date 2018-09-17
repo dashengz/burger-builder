@@ -18,6 +18,10 @@ class BurgerBuilder extends Component {
         loading: false
     };
 
+    componentDidMount() {
+        this.props.onInitIngredients();
+    }
+
     purchaseHandler = () => {
         this.setState({
             purchasing: true
@@ -54,9 +58,9 @@ class BurgerBuilder extends Component {
                 </Modal>
                 {
                     !this.props.ingredients ?
-                        this.state.error ? <p style={{
+                        this.props.error ? <p style={{
                             textAlign: 'center'
-                        }}>{this.state.error}</p> : <Spinner/> : (
+                        }}>{this.props.error}</p> : <Spinner/> : (
                         <React.Fragment>
                             <Burger ingredients={this.props.ingredients}/>
                             <BuildControls
@@ -78,14 +82,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onAddIngredient: (name) => dispatch(actionCreators.addIngredient(name)),
-        onRemoveIngredient: (name) => dispatch(actionCreators.removeIngredient(name))
+        onRemoveIngredient: (name) => dispatch(actionCreators.removeIngredient(name)),
+        onInitIngredients: () => dispatch(actionCreators.initIngredients())
     };
 };
 
