@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions/actionTypes';
+import * as actionCreators from '../../store/actions/index';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -101,8 +101,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddIngredient: (name) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: name}),
-        onRemoveIngredient: (name) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: name})
+        onAddIngredient: (name) => dispatch(actionCreators.addIngredient(name)),
+        onRemoveIngredient: (name) => dispatch(actionCreators.removeIngredient(name))
     };
 };
 
