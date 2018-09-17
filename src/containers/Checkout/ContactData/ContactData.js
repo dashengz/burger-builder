@@ -101,8 +101,7 @@ class ContactData extends Component {
                 value: 'fastest'
             }
         },
-        isValidForm: false,
-        loading: false
+        isValidForm: false
     };
 
     checkValidity(value, rules) {
@@ -168,7 +167,7 @@ class ContactData extends Component {
             <div className={classes.ContactData}>
                 <h4>Enter your Contact Data</h4>
                 {
-                    this.state.loading ? <Spinner /> :
+                    this.props.loading ? <Spinner /> :
                         <form>
                             {
                                 Object.keys(this.state.orderForm).map(e => {
@@ -200,13 +199,14 @@ class ContactData extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        loading: state.loading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: orderData => dispatch(actionCreators.purchaseBurgerStart(orderData))
+        onOrderBurger: orderData => dispatch(actionCreators.purchaseBurger(orderData))
     };
 };
 
