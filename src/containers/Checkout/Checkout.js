@@ -3,15 +3,8 @@ import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSumm
 import {Redirect, Route} from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
 import {connect} from "react-redux";
-import * as actionCreators from '../../store/actions/index';
 
 class Checkout extends Component {
-    constructor(props) {
-        super(props);
-
-        this.props.onInitPurchase();
-        // Too late to modify purchased prop, because the render received the old prop (purchased true)
-    }
 
     cancelHandler = () => {
         this.props.history.goBack();
@@ -45,10 +38,4 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onInitPurchase: () => dispatch(actionCreators.purchaseInit())
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps)(Checkout);
