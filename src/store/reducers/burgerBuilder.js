@@ -2,14 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 import {BURGER_BASE_PRICE, INGREDIENT_PRICES} from "../../constants";
 
 const initialState = {
-    ingredients: {
-        // explicitly set until we learn how to handle async with redux
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
-    totalPrice: BURGER_BASE_PRICE
+    ingredients: null,
+    totalPrice: BURGER_BASE_PRICE,
+    error: null
 };
 
 const reducer = (state = initialState, action) => {

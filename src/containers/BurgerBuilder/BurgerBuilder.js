@@ -15,25 +15,8 @@ class BurgerBuilder extends Component {
     state = {
         // Local UI states
         purchasing: false,
-        loading: false,
-        error: null
+        loading: false
     };
-
-    componentDidMount() {
-        // Commented out until we learn how to handle async with redux
-
-        // axios.get('/ingredients.json')
-        //     .then(response => {
-        //         this.setState({
-        //             ingredients: response.data
-        //         })
-        //     })
-        //     .catch(error => {
-        //         this.setState({
-        //             error: 'Ingredients Failed to load!'
-        //         });
-        //     });
-    }
 
     purchaseHandler = () => {
         this.setState({
