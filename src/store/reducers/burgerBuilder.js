@@ -30,7 +30,14 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_INGREDIENTS:
             return {
                 ...state,
-                ingredients: action.ingredients,
+                ingredients: {
+                    // One option to keep the order of the ingredients
+                    salad: action.ingredients.salad,
+                    bacon: action.ingredients.bacon,
+                    cheese: action.ingredients.cheese,
+                    meat: action.ingredients.meat
+                    // We could also configure this in firebase, eg. storing the order as a property, etc.
+                },
                 error: null
             };
         case actionTypes.FETCH_INGREDIENTS_FAILED:
