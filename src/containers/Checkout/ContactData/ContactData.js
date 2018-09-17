@@ -6,6 +6,8 @@ import classes from "./ContactData.css";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import {connect} from "react-redux";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import * as actionCreators from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -123,9 +125,8 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault();
 
-        this.setState({
-            loading: true
-        });
+        // We will move loading state to redux too
+
         const order = {
             ingredients: this.props.ingredients,
             // shouldn't use this in production
@@ -137,6 +138,8 @@ class ContactData extends Component {
                     [cur]: this.state.orderForm[cur].value
                 }), {})
         };
+
+        this.props.onOrderBurger(order);
     };
 
     inputChangeHandler = (event, id) => {
@@ -201,4 +204,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: orderData => dispatch(actionCreators.purchaseBurgerStart(orderData))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
