@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from "react-redux";
 
 import './index.css';
@@ -14,7 +14,18 @@ const rootReducer = combineReducers({
     res: resultReducer
 }); // combine multiple reducers
 
-const store = createStore(rootReducer);
+const logger = store => {
+    return next => {
+        return action => {
+            console.log('Middleware - Dispatching', action);
+            const result = next(action); // could change action here, but not recommended
+            console.log('Middleware - Next state', store.getState());
+            return result;
+        }
+    }
+};
+
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // Use Provider to connect redux to react, and pass store into our application
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
