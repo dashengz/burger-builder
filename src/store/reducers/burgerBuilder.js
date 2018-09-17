@@ -38,6 +38,7 @@ const reducer = (state = initialState, action) => {
                     meat: action.ingredients.meat
                     // We could also configure this in firebase, eg. storing the order as a property, etc.
                 },
+                totalPrice: BURGER_BASE_PRICE, // revert to initial price
                 error: null
             };
         case actionTypes.FETCH_INGREDIENTS_FAILED:
