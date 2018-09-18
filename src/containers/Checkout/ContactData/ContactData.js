@@ -8,6 +8,7 @@ import Input from "../../../components/UI/Input/Input";
 import {connect} from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actionCreators from '../../../store/actions/index';
+import {checkValidity} from "../../../utility";
 
 class ContactData extends Component {
     state = {
@@ -104,23 +105,6 @@ class ContactData extends Component {
         isValidForm: false
     };
 
-    checkValidity(value, rules) {
-        let isValid = true;
-
-        if (!rules) return isValid;
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-        return isValid;
-    }
-
     orderHandler = (event) => {
         event.preventDefault();
 
@@ -148,7 +132,7 @@ class ContactData extends Component {
         const updatedElement = {...updatedOrderForm[id]};
         updatedElement.value = event.target.value;
         // check validity
-        updatedElement.isValid = this.checkValidity(event.target.value, updatedElement.validation);
+        updatedElement.isValid = checkValidity(event.target.value, updatedElement.validation);
         // register touched
         updatedElement.isTouched = true;
         updatedOrderForm[id] = updatedElement;
