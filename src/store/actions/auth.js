@@ -54,7 +54,10 @@ export const auth = (email, password, method = AUTH_SIGN_UP) => {
                 response.data.localId));
         }).catch(err => {
             console.log(err);
-            dispatch(authFailed(err));
+            // axios wraps the error, so in order to retrieve it
+            // we need to use err.response.data.error
+            // https://github.com/axios/axios#handling-errors
+            dispatch(authFailed(err.response.data.error));
         });
     };
 };

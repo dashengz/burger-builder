@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
             });
         case actionTypes.AUTH_FAILED:
             return updateObject(state, {
-                error: state.error,
+                error: action.error,
                 loading: false
             });
         default:

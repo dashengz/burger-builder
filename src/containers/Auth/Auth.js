@@ -6,6 +6,7 @@ import {checkValidity} from "../../utility";
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
 import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../constants";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Auth extends Component {
     state = {
@@ -83,22 +84,31 @@ class Auth extends Component {
     render() {
         return (
             <div className={classes.Auth}>
+                {
+                    // make use of firebase's error message
+                    // use switch to customize error messages
+                    // https://firebase.google.com/docs/reference/rest/auth
+                    this.props.error ? (<p style={{
+                        color: 'red'
+                    }}>{this.props.error.message}</p>) : null
+                }
                 <form onSubmit={this.submitHandler}>
                     {
-                        Object.keys(this.state.controls).map(e => {
-                            const element = this.state.controls[e];
-                            return (
-                                <Input
-                                    key={e}
-                                    elementType={element.elementType}
-                                    elementConfig={element.elementConfig}
-                                    value={element.value}
-                                    invalid={element.isValid === false}
-                                    touched={element.isTouched}
-                                    errorMessage={element.errorMessage}
-                                    change={(event) => this.inputChangeHandler(event, e)}/>
-                            );
-                        })
+                        this.props.loading ? <Spinner/> :
+                            Object.keys(this.state.controls).map(e => {
+                                const element = this.state.controls[e];
+                                return (
+                                    <Input
+                                        key={e}
+                                        elementType={element.elementType}
+                                        elementConfig={element.elementConfig}
+                                        value={element.value}
+                                        invalid={element.isValid === false}
+                                        touched={element.isTouched}
+                                        errorMessage={element.errorMessage}
+                                        change={(event) => this.inputChangeHandler(event, e)}/>
+                                );
+                            })
                     }
                     <Button
                         accent="Success"
@@ -112,10 +122,17 @@ class Auth extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    }
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password, method) => dispatch(actionCreators.auth(email, password, method))
     }
 };
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
