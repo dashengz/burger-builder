@@ -23,6 +23,20 @@ export const authFailed = error => {
     }
 };
 
+export const logout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+};
+
+export const checkAuthTimeout = expiresIn => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout());
+        }, expiresIn * 1000);
+    }
+};
+
 // The async job made possible by thunk
 export const auth = (email, password, method = AUTH_SIGN_UP) => {
     return dispatch => {
@@ -49,9 +63,9 @@ export const auth = (email, password, method = AUTH_SIGN_UP) => {
         ).then(response => {
             console.log(response);
             // idToken -> token, localId -> userId
-            dispatch(authSuccess(
-                response.data.idToken,
-                response.data.localId));
+            dispatch(authSuccess(response.data.idToken, response.data.localId));
+            // expiresIn
+            dispatch(checkAuthTimeout(response.data.expiresIn));
         }).catch(err => {
             console.log(err);
             // axios wraps the error, so in order to retrieve it
