@@ -7,6 +7,7 @@ import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
 import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../constants";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import {Redirect} from "react-router-dom";
 
 class Auth extends Component {
     state = {
@@ -84,6 +85,7 @@ class Auth extends Component {
     render() {
         return (
             <div className={classes.Auth}>
+                {this.props.isAuthed ? <Redirect to="/"/> : null}
                 {
                     // make use of firebase's error message
                     // use switch to customize error messages
@@ -125,7 +127,8 @@ class Auth extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuthed: !!state.auth.token
     }
 };
 
