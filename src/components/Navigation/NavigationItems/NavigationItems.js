@@ -8,7 +8,13 @@ const navigationItems = (props) => {
         <ul className={classes.NavigationItems}>
             <NavigationItem link="/" exact>Burger Builder</NavigationItem>
             <NavigationItem link="/orders">Orders</NavigationItem>
-            <NavigationItem link="/auth">Authenticate</NavigationItem>
+            {
+                // we could convert this into class-based, but this wouldn't make sense in terms of project structure
+                // thus we would need to get isAuthed from above -> Layout container
+                !props.isAuthed ?
+                    <NavigationItem link="/auth">Authenticate</NavigationItem> :
+                    <NavigationItem link="/logout">Logout</NavigationItem>
+            }
         </ul>
     );
 };

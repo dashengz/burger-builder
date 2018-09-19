@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import classes from './Layout.css';
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
+import {connect} from "react-redux";
 
 class Layout extends Component {
-    // We want to control the state of the menu in both Toolbar and SideDrawer
-    // We can do that by using the state, thus we need to change Layout to class-based component
-
     state = {
         showSideDrawer: false
     };
@@ -28,8 +26,13 @@ class Layout extends Component {
     render() {
         return (
             <React.Fragment>
-                <Toolbar click={this.sideDrawerToggleHandler}/>
-                <SideDrawer show={this.state.showSideDrawer} close={this.sideDrawerClosedHandler}/>
+                <Toolbar
+                    isAuthed={this.props.isAuthenticated}
+                    click={this.sideDrawerToggleHandler}/>
+                <SideDrawer
+                    isAuthed={this.props.isAuthenticated}
+                    show={this.state.showSideDrawer}
+                    close={this.sideDrawerClosedHandler}/>
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>
@@ -38,4 +41,11 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+// Connect to redux, because we want to adjust the Layout based on auth
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: !!state.auth.token, // !== null
+    }
+};
+
+export default connect(mapStateToProps)(Layout);
