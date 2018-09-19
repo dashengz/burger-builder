@@ -79,7 +79,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 isValid: false,
                 isTouched: false,
@@ -152,7 +153,7 @@ class ContactData extends Component {
                 <h4>Enter your Contact Data</h4>
                 {
                     this.props.loading ? <Spinner /> :
-                        <form>
+                        <form onSubmit={this.orderHandler}>
                             {
                                 Object.keys(this.state.orderForm).map(e => {
                                     const element = this.state.orderForm[e];
@@ -170,8 +171,8 @@ class ContactData extends Component {
                                 })
                             }
                             <Button
-                                type="Success"
-                                click={this.orderHandler}
+                                accent="Success"
+                                type="submit"
                                 disabled={!this.state.isValidForm}>ORDER</Button>
                         </form>
                 }

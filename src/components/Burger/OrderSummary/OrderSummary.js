@@ -19,8 +19,8 @@ const orderSummary = (props) => {
             </ul>
             <p><strong>Total Price: ${props.price.toFixed(2)}</strong></p>
             <p>Continue to checkout?</p>
-            <Button type="Danger" click={props.cancel}>CANCEL</Button>
-            <Button type="Success" click={props.checkout}>CONTINUE</Button>
+            <Button accent="Danger" click={props.cancel}>CANCEL</Button>
+            <Button accent="Success" click={props.checkout}>CONTINUE</Button>
         </React.Fragment>
     );
 };

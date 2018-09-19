@@ -5,10 +5,12 @@ import classes from './Auth.css';
 import {checkValidity} from "../../utility";
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
+import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../constants";
 
 class Auth extends Component {
     state = {
         // local state, as it's just collecting user input for this page
+        isSignUp: true,
         controls: {
             email: {
                 elementType: 'input',
@@ -65,8 +67,17 @@ class Auth extends Component {
         event.preventDefault();
         this.props.onAuth(
             this.state.controls.email.value,
-            this.state.controls.password.value
+            this.state.controls.password.value,
+            this.state.isSignUp ? AUTH_SIGN_UP : AUTH_SIGN_IN
         );
+    };
+
+    switchModeHandler = () => {
+        this.setState(prevState => {
+            return {
+                isSignUp: !prevState.isSignUp
+            }
+        })
     };
 
     render() {
@@ -89,7 +100,12 @@ class Auth extends Component {
                             );
                         })
                     }
-                    <Button type="Success">SUBMIT</Button>
+                    <Button
+                        accent="Success"
+                        type="submit">SUBMIT</Button>
+                    <Button
+                        accent="Danger"
+                        click={this.switchModeHandler}>SWITCH TO SIGN {this.state.isSignUp ? 'IN' : 'UP'}</Button>
                 </form>
             </div>
         );
@@ -98,7 +114,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actionCreators.auth(email, password))
+        onAuth: (email, password, method) => dispatch(actionCreators.auth(email, password, method))
     }
 };
 
