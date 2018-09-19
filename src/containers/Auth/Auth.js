@@ -47,6 +47,15 @@ class Auth extends Component {
         }
     };
 
+    componentDidMount() {
+        // Trying to go to checkout, even tho not building a burger
+        // Catches the case when
+        // the user goes to signup page after 'Sign up to order' but not finishing the sign up process
+        if (!this.props.building && this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath('/');
+        }
+    }
+
     inputChangeHandler = (event, controlName) => {
         // need to deep clone the objects that we would change
         // so that we don't modify the original state
@@ -85,7 +94,7 @@ class Auth extends Component {
     render() {
         return (
             <div className={classes.Auth}>
-                {this.props.isAuthed ? <Redirect to="/"/> : null}
+                {this.props.isAuthed ? <Redirect to={this.props.authRedirectPath}/> : null}
                 {
                     // make use of firebase's error message
                     // use switch to customize error messages
@@ -128,13 +137,16 @@ const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
-        isAuthed: !!state.auth.token
+        isAuthed: !!state.auth.token,
+        building: state.burgerBuilder.building,
+        authRedirectPath: state.auth.authRedirectPath
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, method) => dispatch(actionCreators.auth(email, password, method))
+        onAuth: (email, password, method) => dispatch(actionCreators.auth(email, password, method)),
+        onSetAuthRedirectPath: path => dispatch(actionCreators.setAuthRedirectPath(path))
     }
 };
 

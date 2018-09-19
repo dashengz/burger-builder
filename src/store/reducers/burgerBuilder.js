@@ -5,7 +5,8 @@ import {updateObject} from "../utility";
 const initialState = {
     ingredients: null,
     totalPrice: BURGER_BASE_PRICE,
-    error: null
+    error: null,
+    building: false
 };
 
 const modifyIngredient = (state, action, modifier = 1) => {
@@ -13,7 +14,8 @@ const modifyIngredient = (state, action, modifier = 1) => {
         ingredients: updateObject(state.ingredients, {
             [action.ingredientName]: state.ingredients[action.ingredientName] + modifier
         }),
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName] * modifier
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName] * modifier,
+        building: true
     });
 };
 
@@ -25,7 +27,8 @@ const setIngredients = (state, action) => {
             return {...prev, [cur]: action.ingredients[cur]};
         }, {}),
         totalPrice: BURGER_BASE_PRICE, // revert to initial price
-        error: null
+        error: null,
+        building: false
     });
 };
 
