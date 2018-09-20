@@ -64,7 +64,6 @@ export const auth = (email, password, method = AUTH_SIGN_UP) => {
                 returnSecureToken: true
             }
         ).then(response => {
-            console.log(response);
             // utilize localStorage
             localStorage.setItem('token', response.data.idToken);
             localStorage.setItem('userId', response.data.localId);
@@ -76,7 +75,6 @@ export const auth = (email, password, method = AUTH_SIGN_UP) => {
             // expiresIn
             dispatch(checkAuthTimeout(response.data.expiresIn));
         }).catch(err => {
-            console.log(err);
             // axios wraps the error, so in order to retrieve it
             // we need to use err.response.data.error
             // https://github.com/axios/axios#handling-errors
