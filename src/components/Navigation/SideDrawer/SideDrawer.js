@@ -10,7 +10,7 @@ const sideDrawer = (props) => {
             <Backdrop show={props.show} click={props.close} />
             <div className={
                 [classes.SideDrawer, props.show ? classes.Open : classes.Close].join(' ')
-            }>
+            } onClick={props.close}>
                 <div className={classes.Logo}><Logo /></div>
                 <nav>
                     <NavigationItems isAuthed={props.isAuthed}/>
