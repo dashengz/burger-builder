@@ -120,7 +120,8 @@ class ContactData extends Component {
                 .reduce((prev, cur) => ({
                     ...prev,
                     [cur]: this.state.orderForm[cur].value
-                }), {})
+                }), {}),
+            userId: this.props.userId
         };
 
         this.props.onOrderBurger(order, this.props.token);
@@ -186,7 +187,8 @@ const mapStateToProps = state => {
         ingredients: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         loading: state.order.loading,
-        token: state.auth.token
+        token: state.auth.token,
+        userId: state.auth.userId
     };
 };
 

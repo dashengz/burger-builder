@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from '../../axios-orders';
+import {wrapWithQuote} from "../utility";
 
 export const purchaseBurgerSuccess = (id, orderData) => {
     return {
@@ -62,10 +63,17 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('/orders.json?auth=' + token)
+        axios.get('/orders.json', {
+            // firebase functionalities, with different backend, the setup would be different
+            params: {
+                auth: token,
+                orderBy: wrapWithQuote('userId'),
+                equalTo: wrapWithQuote(userId)
+            }
+        })
             .then(res => {
                 const orders = Object.keys(res.data).map(key => {
                     return {
