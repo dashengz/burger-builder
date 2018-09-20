@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import classes from './Auth.css';
-import {checkValidity} from "../../utility";
+import {checkValidity} from "../../shared/utility";
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
-import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../constants";
+import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../shared/constants";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {Redirect} from "react-router-dom";
+import {updateObject} from "../../store/utility";
 
 class Auth extends Component {
     state = {
@@ -59,15 +60,13 @@ class Auth extends Component {
     inputChangeHandler = (event, controlName) => {
         // need to deep clone the objects that we would change
         // so that we don't modify the original state
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
+        const updatedControls = updateObject(this.state.controls, {
+            [controlName]: updateObject(this.state.controls[controlName], {
                 value: event.target.value,
                 isValid: checkValidity(event.target.value, this.state.controls[controlName].validation),
                 isTouched: true
-            }
-        };
+            })
+        });
 
         this.setState({
             controls: updatedControls

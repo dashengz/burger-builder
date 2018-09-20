@@ -8,7 +8,8 @@ import Input from "../../../components/UI/Input/Input";
 import {connect} from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actionCreators from '../../../store/actions/index';
-import {checkValidity} from "../../../utility";
+import {checkValidity} from "../../../shared/utility";
+import {updateObject} from "../../../store/utility";
 
 class ContactData extends Component {
     state = {
@@ -130,15 +131,13 @@ class ContactData extends Component {
     inputChangeHandler = (event, id) => {
         // need to deep clone the objects that we would change
         // so that we don't modify the original state
-        const updatedOrderForm = {...this.state.orderForm};
-        const updatedElement = {...updatedOrderForm[id]};
-        updatedElement.value = event.target.value;
-        // check validity
-        updatedElement.isValid = checkValidity(event.target.value, updatedElement.validation);
-        // register touched
-        updatedElement.isTouched = true;
-        updatedOrderForm[id] = updatedElement;
-
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [id]: updateObject(this.state.orderForm[id], {
+                value: event.target.value,
+                isValid: checkValidity(event.target.value, this.state.orderForm[id].validation),
+                isTouched: true
+            })
+        });
         this.setState({
             orderForm: updatedOrderForm,
             // set overall form validity

@@ -9,7 +9,7 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import {connect} from "react-redux";
-import {BURGER_BASE_PRICE} from "../../constants";
+import {BURGER_BASE_PRICE} from "../../shared/constants";
 
 class BurgerBuilder extends Component {
     state = {

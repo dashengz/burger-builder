@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import {BURGER_BASE_PRICE, ERROR_FETCH_INGREDIENTS_FAILED, INGREDIENT_PRICES} from "../../constants";
+import {BURGER_BASE_PRICE, ERROR_FETCH_INGREDIENTS_FAILED, INGREDIENT_PRICES} from "../../shared/constants";
 import {updateObject} from "../utility";
 
 const initialState = {

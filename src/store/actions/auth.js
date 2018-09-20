@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from "axios";
-import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../constants";
+import {AUTH_SIGN_IN, AUTH_SIGN_UP} from "../../shared/constants";
 
 export const authStart = () => {
     return {
