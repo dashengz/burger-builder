@@ -110,4 +110,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
+// Strip out redux and export BurgerBuilder as a named-export, so that we can unit test it
+export {BurgerBuilder};
+
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
