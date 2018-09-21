@@ -12,9 +12,20 @@ configure({
 
 // describe(), it(), expect() -> jest library
 describe('<NavigationItems />', () => {
+    let wrapper;
+    beforeEach(() => {
+        wrapper = shallow(<NavigationItems/>);
+    });
+
     it('should render two <NavigationItem /> elements if not authenticated', () => {
-        // shallow is used the most, because it doesn't deeply render a component
-        const wrapper = shallow(<NavigationItems/>);
         expect(wrapper.find(NavigationItem)).toHaveLength(2);
-    })
+    });
+
+    it('should render three <NavigationItem /> elements if authenticated', () => {
+        // wrapper = shallow(<NavigationItems isAuthed />);
+        wrapper.setProps({
+            isAuthed: true
+        });
+        expect(wrapper.find(NavigationItem)).toHaveLength(3);
+    });
 });
