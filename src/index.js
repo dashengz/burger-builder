@@ -28,6 +28,10 @@ const store = createStore(
 
 const app = (
     <Provider store={store}>
+        {/* Depending on what domain you want to serve the app,
+            you can set the basename prop on BrowserRouter.
+            And then run 'npm run build',
+            upload all the content in /build to the server */}
         <BrowserRouter>
             <App/>
         </BrowserRouter>
